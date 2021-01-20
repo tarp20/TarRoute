@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}New City{% endblock  %}
+
+{% block content %}
+    <h1>New City</h1>
+    
+    {% include "form.html" with button='Add City' %}
+    
+{% endblock content %}

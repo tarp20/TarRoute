@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}City{% endblock  %}
+
+{% block content %}
+    <h1>List of Cities</h1>
+    <div class="row">
+        <div class="col-md">
+            <table class="table table-striped">
+                <tr>
+                    <th>Number</th>
+                    <th>City From</th>
+                    <th>City To</th>
+                    <th>Time Travel</th>
+                 
+                </tr>
+            
+                <tr>
+                    <td>{{ob.name}}</td>
+                    {#<td><a href="{% url 'city_detail' pk=ob.pk %}">{{ob.name}}</a></td>#}
+                    <td>{{ob.city_from}}</td>
+                    <td>{{ob.city_to}}</td>
+                    <td>{{ob.travel_time}}</td>
+             
+                </tr>
+                
+            
+            </table>
+            </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-4">
+            <a href="{% url 'trains' %}">
+                <button type="btn btn-light">
+                    Back to List of Trains
+                </button>
+            </a>
+        </div>
+    </div>
+{% endblock content %}

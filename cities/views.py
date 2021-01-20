@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -10,17 +10,14 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 from .models import City
-from .forms import HtmlForm,CityForm
+from .forms import HtmlForm, CityForm
 
 
-
-def cities(request,pk=None):
+def cities(request, pk=None):
     if request.method == 'POST':
         form = CityForm(request.POST)
         if form.is_valid():
             form.save()
-
-
 
     # if pk:
     #     city = City.objects.filter(id=pk).first()
@@ -29,10 +26,10 @@ def cities(request,pk=None):
     #     return render(request, 'cities/detail.html', context)
     form = CityForm()
     qs = City.objects.all()
-    list = Paginator(qs,2)
-    page_number = request.Get.get('page')
+    list = Paginator(qs, 5)
+    page_number = request.POST.get('page')
     page_obj = list.get_page(page_number)
-    context = {'page_obj':page_obj ,'form':form}
+    context = {'page_obj': page_obj, 'form': form}
     return render(request, 'cities/home.html', context)
 
 
@@ -41,7 +38,7 @@ class CityDetailView(DetailView):
     template_name = 'cities/detail.html'
 
 
-class CityCreateView(SuccessMessageMixin,CreateView):
+class CityCreateView(SuccessMessageMixin, CreateView):
 
     model = City
     form_class = CityForm
@@ -50,46 +47,31 @@ class CityCreateView(SuccessMessageMixin,CreateView):
     success_message = 'City created successfully!'
 
 
-class CityUpdateView(SuccessMessageMixin,UpdateView):
+class CityUpdateView(SuccessMessageMixin, UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
     success_url = reverse_lazy('cities')
     success_message = 'City updated successfully!'
 
+
 class CityDeleteView(DeleteView):
     model = City
     #template_name = 'cities/delete.html'
     success_url = reverse_lazy('cities')
 
-    def get(self,request,*args,**kwargs):
-        messages.success(request,'City delated successfully')
-        return self.post(request,*args,**kwargs)
+    def get(self, request, *args, **kwargs):
+        messages.success(request, 'City delated successfully')
+        return self.post(request, *args, **kwargs)
+
 
 class CityListView(ListView):
-    paginate_by = 2
+    paginate_by = 5
     model = City
     template_name = 'cities/home.html'
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         form = CityForm
         context['form'] = form
         return context
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

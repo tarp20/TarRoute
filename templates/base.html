@@ -1,3 +1,6 @@
+{% url 'cities' as cities_url %}
+{% url 'trains' as trains_url %}
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,12 +22,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav {% if request.path == cities %}active {% endif %}">
+      <ul class="navbar-nav {% if request.path == cities_url%}active{% endif %}">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{% url 'cities' %}">Cities</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+        <li class="nav-item {% if request.path == trains_url%}active{% endif %}">
+          <a class="nav-link" href="{% url 'trains' %}">Trains</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
