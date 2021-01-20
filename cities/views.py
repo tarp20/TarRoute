@@ -6,6 +6,9 @@ from django.urls import reverse_lazy
 
 from django.core.paginator import Paginator
 
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+
 from .models import City
 from .forms import HtmlForm,CityForm
 
@@ -38,19 +41,21 @@ class CityDetailView(DetailView):
     template_name = 'cities/detail.html'
 
 
-class CityCreateView(CreateView):
+class CityCreateView(SuccessMessageMixin,CreateView):
 
     model = City
     form_class = CityForm
     template_name = 'cities/create.html'
     success_url = reverse_lazy('cities')
+    success_message = 'City created successfully!'
 
 
-class CityUpdateView(UpdateView):
+class CityUpdateView(SuccessMessageMixin,UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
     success_url = reverse_lazy('cities')
+    success_message = 'City updated successfully!'
 
 class CityDeleteView(DeleteView):
     model = City
@@ -58,6 +63,7 @@ class CityDeleteView(DeleteView):
     success_url = reverse_lazy('cities')
 
     def get(self,request,*args,**kwargs):
+        messages.success(request,'City delated successfully')
         return self.post(request,*args,**kwargs)
 
 class CityListView(ListView):
