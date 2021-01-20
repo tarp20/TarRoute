@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+
+from django.core.paginator import Paginator
 
 from .models import City
 from .forms import HtmlForm,CityForm
@@ -23,7 +26,10 @@ def cities(request,pk=None):
     #     return render(request, 'cities/detail.html', context)
     form = CityForm()
     qs = City.objects.all()
-    context = {'objects_list':qs,'form':form}
+    list = Paginator(qs,2)
+    page_number = request.Get.get('page')
+    page_obj = list.get_page(page_number)
+    context = {'page_obj':page_obj ,'form':form}
     return render(request, 'cities/home.html', context)
 
 
@@ -54,6 +60,16 @@ class CityDeleteView(DeleteView):
     def get(self,request,*args,**kwargs):
         return self.post(request,*args,**kwargs)
 
+class CityListView(ListView):
+    paginate_by = 2
+    model = City
+    template_name = 'cities/home.html'
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        form = CityForm
+        context['form'] = form
+        return context
 
 
 
