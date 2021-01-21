@@ -21,8 +21,8 @@
                     <td>{{ob.city_from}}</td>
                     <td>{{ob.city_to}}</td>
                     <td>{{ob.travel_time}}</td>
-                    <td>&nbsp;</td>
-                    <td>&nbsp;</td>
+                    <td><a href="{% url 'train_udpate' pk=ob.pk %}"><button type="submit" class="btn btn-primary">Update</button></a></td>
+                    <td><a href="{% url 'train_delete' pk=ob.pk %}"><button type="submit" class="btn btn-danger">Delete</button></a></td>
                    
                 </tr>
                 

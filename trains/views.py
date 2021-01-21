@@ -10,7 +10,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 
 from .models import Train
-# from .forms import HtmlForm, TrainForm
+from .forms import  TrainForm
 
 
 def trains(request, pk=None):
@@ -35,28 +35,28 @@ class TrainDetailView(DetailView):
     template_name = 'trains/detail.html'
 
 
-# class CityCreateView(SuccessMessageMixin, CreateView):
+class TrainCreateView(SuccessMessageMixin, CreateView):
 
-#     model = Train
-#     form_class = TrainForm
-#     template_name = 'trains/create.html'
-#     success_url = reverse_lazy('trains')
-#     success_message = 'Train created successfully!'
-
-
-# class CityUpdateView(SuccessMessageMixin, UpdateView):
-#     model = Train
-#     form_class = TrainForm
-#     template_name = 'trains/update.html'
-#     success_url = reverse_lazy('trains')
-#     success_message = 'Train updated successfully!'
+    model = Train
+    form_class = TrainForm
+    template_name = 'trains/create.html'
+    success_url = reverse_lazy('trains')
+    success_message = 'Train created successfully!'
 
 
-# class CityDeleteView(DeleteView):
-#     model = Train
-#     #template_name = 'trains/delete.html'
-#     success_url = reverse_lazy('trains')
+class TrainUpdateView(SuccessMessageMixin, UpdateView):
+    model = Train
+    form_class = TrainForm
+    template_name = 'trains/update.html'
+    success_url = reverse_lazy('trains')
+    success_message = 'Train updated successfully!'
 
-#     def get(self, request, *args, **kwargs):
-#         messages.success(request, 'Train delated successfully')
-#         return self.post(request, *args, **kwargs)
+
+class TrainDeleteView(DeleteView):
+    model = Train
+    #template_name = 'trains/delete.html'
+    success_url = reverse_lazy('trains')
+
+    def get(self, request, *args, **kwargs):
+        messages.success(request, 'Train delated successfully')
+        return self.post(request, *args, **kwargs)
