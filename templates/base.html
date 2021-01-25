@@ -34,7 +34,7 @@
           <a class="nav-link" href="{% url 'trains' %}">Trains</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" href="{% url 'list' %}">Routes</a>
         </li>
         
         <li class="nav-item dropdown {% if request.path == city_add or request.path == train_add %} active {% endif %}">
