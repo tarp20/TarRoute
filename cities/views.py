@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.core.paginator import Paginator
 
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 from .models import City
@@ -33,12 +34,12 @@ def cities(request, pk=None):
     return render(request, 'cities/home.html', context)
 
 
-class CityDetailView(DetailView):
+class CityDetailView(LoginRequiredMixin,DetailView):
     queryset = City.objects.all()
     template_name = 'cities/detail.html'
 
 
-class CityCreateView(SuccessMessageMixin, CreateView):
+class CityCreateView(SuccessMessageMixin, LoginRequiredMixin, CreateView):
 
     model = City
     form_class = CityForm
@@ -47,7 +48,7 @@ class CityCreateView(SuccessMessageMixin, CreateView):
     success_message = 'City created successfully!'
 
 
-class CityUpdateView(SuccessMessageMixin, UpdateView):
+class CityUpdateView(SuccessMessageMixin,LoginRequiredMixin, UpdateView):
     model = City
     form_class = CityForm
     template_name = 'cities/update.html'
@@ -55,7 +56,7 @@ class CityUpdateView(SuccessMessageMixin, UpdateView):
     success_message = 'City updated successfully!'
 
 
-class CityDeleteView(DeleteView):
+class CityDeleteView(LoginRequiredMixin,DeleteView):
     model = City
     #template_name = 'cities/delete.html'
     success_url = reverse_lazy('cities')
@@ -65,7 +66,7 @@ class CityDeleteView(DeleteView):
         return self.post(request, *args, **kwargs)
 
 
-class CityListView(ListView):
+class CityListView(LoginRequiredMixin,ListView):
     paginate_by = 5
     model = City
     template_name = 'cities/home.html'

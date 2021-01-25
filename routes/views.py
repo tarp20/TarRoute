@@ -15,6 +15,7 @@ from trains.models import Train
 from cities.models import City
 
 
+
 def home(request):
     form = RouteForm()
     return render(request, 'routes/home.html', {'form': form})
@@ -101,7 +102,7 @@ class RouteDeleteView(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
-        messages.success(request, 'Маршрут успешно удален')
+        messages.success(request, 'Route deleted successfully')
         return self.post(request, *args, **kwargs)
 
 

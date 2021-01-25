@@ -21,8 +21,13 @@
                     <td>{{ob.city_from}}</td>
                     <td>{{ob.city_to}}</td>
                     <td>{{ob.travel_time}}</td>
+                     {% if is_authenticated %}   
                     <td><a href="{% url 'train_udpate' pk=ob.pk %}"><button type="submit" class="btn btn-primary">Update</button></a></td>
                     <td><a href="{% url 'train_delete' pk=ob.pk %}"><button type="submit" class="btn btn-danger">Delete</button></a></td>
+                    {% else %}
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                    {% endif %}
                    
                 </tr>
                 

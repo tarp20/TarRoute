@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('cities/',include('cities.urls')),
     path('trains/',include('trains.urls')),
+    path('accounts/',include('acc.urls')),
     path('', home , name = 'home'),
     path('find_route/', find_route,name = 'find_route'),
     path('add_route/', add_route,name = 'add_route'),
