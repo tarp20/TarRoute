@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 
 secret.py
+local_settings.py

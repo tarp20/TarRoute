@@ -1,0 +1,1 @@
+web: gunicorn TarRoute.wsgi --log-file -
