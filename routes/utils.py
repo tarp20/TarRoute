@@ -2,12 +2,12 @@ from trains.models import Train
 
 
 
-def dfs_paths(praph,start,goal):
+def dfs_paths(graph,start,goal):
     stack = [(start,[start])]
     while stack:
         (vertex,path) = stack.pop()
-        if vertex in praph.keys():
-            for next_ in praph[vertex] - set(path):
+        if vertex in graph.keys():
+            for next_ in graph[vertex] - set(path):
                 if next_ == goal:
                     yield path + [next_]
                 else:
@@ -54,18 +54,18 @@ def get_routes(request,form) -> dict:
     for q in qs:
         all_trains.setdefault((q.city_from_id, q.city_to_id),[])
         all_trains[(q.city_from_id,q.city_to_id)].append(q)
-        for route in right_ways:
-            tmp = {}
-            tmp['trains'] = []
-            total_time = 0
-            for i in range(len(route)-1):
-                qs = all_trains[(route[i], route[i+1] )]
-                q = qs[0]
-                total_time +=q.travel_time
-                tmp['trains'].append(q)
-            tmp['total_time'] = total_time
-            if total_time <= travelling_time:
-                routes.append(tmp)
+    for route in right_ways:
+        tmp = {}
+        tmp['trains'] = []
+        total_time = 0
+        for i in range(len(route)-1):
+            qs = all_trains[(route[i], route[i+1] )]
+            q = qs[0]
+            total_time +=q.travel_time
+            tmp['trains'].append(q)
+        tmp['total_time'] = total_time
+        if total_time <= travelling_time:
+            routes.append(tmp)
     if not routes:
         raise ValueError('Travel time is longer than specified')
     sorted_routes = []
@@ -81,6 +81,8 @@ def get_routes(request,form) -> dict:
     context['routes'] = sorted_routes
     context['cities'] = {'city_from':city_from,'city_to':city_to}
     return context
+
+
 
 
 
