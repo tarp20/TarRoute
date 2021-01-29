@@ -61,6 +61,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhitenoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -150,19 +151,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-# LOGGING = {
-#     'version': 1,
-#     'disable_existing_loggers': False,
-#     'filter': {
-#     'require_debug_true':{
-#     '()':django.utils.log.RequireDebugTrue,
-#     }
-#     },
-#     'formatters': {
-#     'verbo'
-#     }'
-# }
-
+STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 
 
 
