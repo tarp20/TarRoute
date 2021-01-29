@@ -9,17 +9,17 @@ from trains.models import Train
 
 class RouteForm(forms.Form):
     city_from = forms.ModelChoiceField(
-        label='From', queryset=City.objects.all(), widget=forms.Select(
+        label='From Which City', queryset=City.objects.all(), widget=forms.Select(
             attrs={'class': 'form-control js-example-basic-single'}
         )
     )
     city_to = forms.ModelChoiceField(
-        label='Куда', queryset=City.objects.all(), widget=forms.Select(
+        label='To Which City', queryset=City.objects.all(), widget=forms.Select(
             attrs={'class': 'form-control js-example-basic-single'}
         )
     )
     cities = forms.ModelMultipleChoiceField(
-        label='throught', queryset=City.objects.all(),
+        label='Through Which Сities', queryset=City.objects.all(),
         required=False, widget=forms.SelectMultiple(
             attrs={'class': 'form-control js-example-basic-multiple'}
         )
